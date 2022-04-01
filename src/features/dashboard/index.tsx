@@ -8,7 +8,7 @@ export const Dashboard = () => {
     ["test"],
     () => {
       return fetch(
-        `http://api.weatherapi.com/v1/current.json?key=fd5ab1b0df0c409690502604220104&q=${location?.coords.latitude},${location?.coords.longitude}`,
+        `https://api.weatherapi.com/v1/current.json?key=fd5ab1b0df0c409690502604220104&q=${location?.coords.latitude},${location?.coords.longitude}`,
         { method: "GET" }
       ).then((resp) => resp.json());
     },
