@@ -1,10 +1,12 @@
+import { Card, CardSection, Group, Text } from "@mantine/core";
 import { useQuery } from "react-query";
+import { PlacePhoto } from "../../google/PlacePhoto";
 import { useGeolocation } from "../../hooks/use-geolocation";
 
 export const Dashboard = () => {
   const location = useGeolocation();
 
-  const { data, isLoading } = useQuery<CurrentWeather, unknown, CurrentWeather>(
+  const { data } = useQuery<CurrentWeather, unknown, CurrentWeather>(
     ["test"],
     () => {
       return fetch(
@@ -17,18 +19,40 @@ export const Dashboard = () => {
     }
   );
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   return (
-    <div>
-      {data?.current?.condition?.text}
-      <img
-        src={"https:" + data?.current?.condition?.icon}
-        alt={data?.current?.condition?.text}
-      />
-    </div>
+    <PlacePhoto
+      render={({ photo, name }) => (
+        <div style={{ width: "34rem" }}>
+          <Card shadow="sm">
+            <CardSection>
+              <img
+                src={photo.getUrl()}
+                alt={name}
+                style={{
+                  height: "auto",
+                  width: "34rem",
+                }}
+              />
+            </CardSection>
+            <CardSection p="lg">
+              <Group position="apart">
+                <Text weight={500} size="xl">
+                  {name}
+                </Text>
+              </Group>
+            </CardSection>
+            <Group>
+              <img
+                style={{ display: "inline-block" }}
+                src={"https:" + data?.current?.condition?.icon}
+                alt={data?.current?.condition?.text}
+              />
+              <Text size="md">{data?.current?.condition?.text}</Text>
+            </Group>
+          </Card>
+        </div>
+      )}
+    />
   );
 };
 
