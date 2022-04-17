@@ -1,6 +1,5 @@
-import { Card, CardSection, Group, Text } from "@mantine/core";
 import { useQuery } from "react-query";
-import { PlacePhoto } from "../../google/PlacePhoto";
+import { PlaceCard } from "../../google/PlaceCard";
 import { useGeolocation } from "../../hooks/use-geolocation";
 
 export const Dashboard = () => {
@@ -20,39 +19,19 @@ export const Dashboard = () => {
   );
 
   return (
-    <PlacePhoto
-      render={({ photo, name }) => (
-        <div style={{ width: "34rem" }}>
-          <Card shadow="sm">
-            <CardSection>
-              <img
-                src={photo.getUrl()}
-                alt={name}
-                style={{
-                  height: "auto",
-                  width: "34rem",
-                }}
-              />
-            </CardSection>
-            <CardSection p="lg">
-              <Group position="apart">
-                <Text weight={500} size="xl">
-                  {name}
-                </Text>
-              </Group>
-            </CardSection>
-            <Group>
-              <img
-                style={{ display: "inline-block" }}
-                src={"https:" + data?.current?.condition?.icon}
-                alt={data?.current?.condition?.text}
-              />
-              <Text size="md">{data?.current?.condition?.text}</Text>
-            </Group>
-          </Card>
-        </div>
-      )}
-    />
+    <div
+      style={{
+        textAlign: "center",
+        width: "100%",
+        height: "100vh",
+        backgroundColor: "#f1f1f1",
+      }}
+    >
+      <PlaceCard
+        icon={data?.current?.condition?.icon}
+        condition={data?.current?.condition?.text}
+      />
+    </div>
   );
 };
 
