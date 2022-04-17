@@ -6,7 +6,7 @@ export const useGeolocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (location) => {
-          if (process.env.NODE_ENV === "production") {
+          if (process.env.NODE_ENV === "development") {
             setLocation({
               timestamp: 0,
               coords: {
